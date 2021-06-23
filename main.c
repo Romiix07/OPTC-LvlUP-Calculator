@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <fcntl.h>
 
 int	get_values(int *currLevel, int *maxStam, int *islandStam, int *currStam, int *xpLeft, int *stamPerRun, int *xpPerStam, int *timePerRun)
 {
@@ -34,17 +33,22 @@ int	get_values(int *currLevel, int *maxStam, int *islandStam, int *currStam, int
 
 int	fill_levelTab(int *levelTab, FILE *stream)
 {
-	char	*s = 0;
+	char	*s;
 	int		i = 0;
 	size_t	len = 0;
 
-	while (getline(&s, &len, stream) && i < 1999)
+	if (!s)
+		return (0);
+	while (i < 1999 && getline(&s, &len, stream))
 	{
 		if (!s || !len)
 			return (0);
 		levelTab[i] = atoi(s);
 		++i;
+		free(s);
+		s = 0;
 	}
+	free(s);
 	return (1);
 }
 
@@ -74,8 +78,6 @@ int	main(void)
 	else
 		write(1, "levelTab initialized\n", 21);
 	fclose(stream);
-	// for (int i = 0; i < 1999; ++i)
-		// printf("levelTab[%d] = %d\n", i, levelTab[i]);
 	
 	if (!get_values(&currLevel, &maxStam, &islandStam, &currStam, &xpLeft, &stamPerRun, &xpPerStam, &timePerRun))
 	{
@@ -129,7 +131,6 @@ int	main(void)
 	if (xpPerStam * currStam < xpLeft)
 		printf("You can't level up with your current stamina.\n");
 	
-	//End
 	free(levelTab);
 	return (0);
 }
