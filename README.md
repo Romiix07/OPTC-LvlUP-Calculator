@@ -17,4 +17,4 @@ Or just:
 
 and fill the infos manually
 
-Thanks to the autor of this sheet where I could get the xp required to level up: https://docs.google.com/spreadsheets/d/16YOjFmgFHikbm8uwoyH3479jMplhv-iNrcBAv_oPWsI/edit#gid=804779598
+Thanks to Doctor Jekyll for creating this sheet where I could get the xp required to level up: https://docs.google.com/spreadsheets/d/1VF2F4Cd9JZrJweTEkofcBWd_rDXd10c1qlnLTusdi00/edit#gid=407753494
