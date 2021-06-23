@@ -2,16 +2,13 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int	get_values(int *currLevel, int *maxStam, int *islandStam, int *currStam, int *xpLeft, int *stamPerRun, int *xpPerStam, int *timePerRun)
+int	get_values(int *currLevel, int *maxStam, int *currStam, int *xpLeft, int *stamPerRun, int *xpPerStam, int *timePerRun)
 {
 	printf("Insert your current Pirate Level (1-1999):\n");
 	if (!scanf("%d", currLevel))
 		return (0);
 	printf("Insert your maximum stamina:\n");
 	if (!scanf("%d", maxStam))
-		return (0);
-	printf("Insert bonus stamina earned from your Stamina Island (0-60):\n");
-	if (!scanf("%d", islandStam))
 		return (0);
 	printf("Insert your current stamina:\n");
 	if (!scanf("%d", currStam))
@@ -57,7 +54,6 @@ int	main(void)
 	int		*levelTab = 0;
 	int		currLevel = 0;
 	int		maxStam = 0;
-	int		islandStam = 0;
 	int		currStam = 0;
 	int		xpLeft = 0;
 	int		stamPerRun = 0;
@@ -79,7 +75,7 @@ int	main(void)
 		write(1, "levelTab initialized\n", 21);
 	fclose(stream);
 	
-	if (!get_values(&currLevel, &maxStam, &islandStam, &currStam, &xpLeft, &stamPerRun, &xpPerStam, &timePerRun))
+	if (!get_values(&currLevel, &maxStam, &currStam, &xpLeft, &stamPerRun, &xpPerStam, &timePerRun))
 	{
 		free(levelTab);
 		return (write(2, "Incorrect values\n", 17));
@@ -121,7 +117,7 @@ int	main(void)
 		}
 			// printf("\nxpleft %d\n", xpLeft);
 		printf("\nP-lvl = \033[0;32m%4d\033[0m:\tRuns = \033[0;32m%2d\033[0m,    maxStam = \033[0;32m%d\033[0m,\
-	currStam = \033[0;32m%5d\033[0m,    XP->(%5d/%d),   Time: %dh%dm%ds,\tTotal Time: \033[0;32m%d\033[0mh\033[0;32m%d\033[0mm\033[0;32m%d\033[0ms",
+	currStam = \033[0;32m%5d\033[0m,    XP->(%5d/%8d),   Time: %dh%dm%ds,\tTotal Time: \033[0;32m%d\033[0mh\033[0;32m%d\033[0mm\033[0;32m%d\033[0ms",
 			currLevel, runs, maxStam, currStam, levelTab[currLevel - 1] - xpLeft, levelTab[currLevel - 1],
 			timePerRun * runs / 3600, timePerRun * runs / 60 % 60, timePerRun * runs % 60,
 			totalTime / 3600, totalTime / 60 % 60, totalTime % 60); // h:m:s
