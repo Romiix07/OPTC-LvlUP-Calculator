@@ -1,6 +1,7 @@
 # OPTC-PLvlUP-Calculator
 
-One Piece Treasure Cruise Pirate-Level Up Calculator,
+One Piece Treasure Cruise Pirate-Level Up Calculator.
+
 Calculate how many P-Lvl-Up you can get for free in One Piece Treasure Cruise, in how many runs and how much time.
 
 Edit "infos" file with the help of "exemple" then:
