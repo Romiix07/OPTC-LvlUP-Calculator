@@ -87,22 +87,39 @@ int	main(void)
 	int	runs = 0;
 	int	xpGained = 0;
 	int	totalRuns = 0;
+	int	meats = 0;
 
 	printf("\nP-lvl = %d: maxStam =\t%d, currStam =\t%d, XP->(%d/%d)",
 			currLevel, maxStam, currStam, levelTab[currLevel - 1] - xpLeft, levelTab[currLevel - 1]);
-	while (xpPerStam * currStam > xpLeft && currLevel < 1999)
+	while (((xpPerStam * currStam > xpLeft) || (meats)) && currLevel < 1999)
 	{
+		if (xpPerStam * currStam < xpLeft && meats)
+		{
+			if (!meats)
+			break ;
+			--meats;
+			currStam += maxStam;
+		}
 		runs = xpLeft / xpPerRun + 1;
 		totalRuns += runs;
 		xpGained = runs * xpPerRun;
 		totalTime += timePerRun * runs;
 		if (runs * stamPerRun > currStam)
 		{
-			printf("\nYou don't have enough to finish the last run to level up, but you technically have enough stamina to level up.\n");
-			break ;
+			if (meats)
+			{
+				--meats;
+				currStam += maxStam;
+			}
+			else
+			{
+				printf("\nYou don't have enough to finish the last run to level up, but you technically have enough stamina to level up.\n");
+				break ;
+			}
 		}
 		currStam -= runs * stamPerRun;
-		currStam += maxStam;
+		++meats;
+		// currStam += maxStam;
 		xpLeft = levelTab[currLevel] - (runs * xpPerRun - xpLeft);
 		xpGained -= xpLeft;
 		++currLevel;
@@ -110,15 +127,16 @@ int	main(void)
 		while (xpGained >= levelTab[currLevel])
 		{
 			xpGained -= levelTab[currLevel];
-			currStam += maxStam;
+			++meats;
+			// currStam += maxStam;
 			++currLevel;
 			maxStam += currLevel % 2 == 0 ? 0 : 1;
 			xpLeft = levelTab[currLevel] - xpGained;
 		}
 			// printf("\nxpleft %d\n", xpLeft);
-		printf("\nP-lvl = \033[0;32m%4d\033[0m:\tRuns = \033[0;32m%2d\033[0m,    maxStam = \033[0;32m%d\033[0m,\
+		printf("\nP-lvl = \033[0;32m%4d\033[0m:\tRuns = \033[0;32m%2d\033[0m,    Total Runs = \033[0;32m%5d\033[0m,    meats = %3d,   maxStam = \033[0;32m%d\033[0m,\
 	currStam = \033[0;32m%5d\033[0m,    XP->(%5d/%8d),   Time: %dh%dm%ds,\tTotal Time: \033[0;32m%d\033[0mh\033[0;32m%d\033[0mm\033[0;32m%d\033[0ms",
-			currLevel, runs, maxStam, currStam, levelTab[currLevel - 1] - xpLeft, levelTab[currLevel - 1],
+			currLevel, runs, totalRuns, meats, maxStam, currStam, levelTab[currLevel - 1] - xpLeft, levelTab[currLevel - 1],
 			timePerRun * runs / 3600, timePerRun * runs / 60 % 60, timePerRun * runs % 60,
 			totalTime / 3600, totalTime / 60 % 60, totalTime % 60); // h:m:s
 	}
