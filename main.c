@@ -97,8 +97,14 @@ int	main(void)
 		{
 			if (!meats)
 			break ;
-			--meats;
-			currStam += maxStam;
+			while (xpPerStam * currStam < xpLeft)
+			{
+				if (meats)
+					--meats;
+				else
+					break ;
+				currStam += maxStam;
+			}
 		}
 		runs = xpLeft / xpPerRun + 1;
 		totalRuns += runs;
