@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int	get_values(int *currLevel, int *maxStam, int *currStam, int *xpLeft, int *stamPerRun, int *xpPerStam, int *timePerRun)
+int	get_values(int *currLevel, int *maxStam, int *currStam, int *xpLeft, int *stamPerRun, int *xpPerStam, int *timePerRun, int *meats)
 {
 	printf("Insert your current Pirate Level (1-1999):\n");
 	if (!scanf("%d", currLevel))
@@ -24,6 +24,9 @@ int	get_values(int *currLevel, int *maxStam, int *currStam, int *xpLeft, int *st
 		return (0);
 	printf("Insert the time you take to do 1 run (Add reward screen time etc, all in seconds, 0 if don't know):\n");
 	if (!scanf("%d", timePerRun))
+		return (0);
+	printf("Insert how many meats you have:\n");
+	if (!scanf("%d", meats))
 		return (0);
 	return (1);
 }
@@ -59,6 +62,7 @@ int	main(void)
 	int		stamPerRun = 0;
 	int		xpPerStam = 0;
 	int		timePerRun = 0;
+	int		meats = 0;
 	FILE	*stream = fopen("XPToNextLevel.txt", "r");
 
 	if (!stream)
@@ -75,7 +79,7 @@ int	main(void)
 		write(1, "levelTab initialized\n", 21);
 	fclose(stream);
 	
-	if (!get_values(&currLevel, &maxStam, &currStam, &xpLeft, &stamPerRun, &xpPerStam, &timePerRun))
+	if (!get_values(&currLevel, &maxStam, &currStam, &xpLeft, &stamPerRun, &xpPerStam, &timePerRun, &meats))
 	{
 		free(levelTab);
 		return (write(2, "Incorrect values\n", 17));
@@ -87,7 +91,6 @@ int	main(void)
 	int	runs = 0;
 	int	xpGained = 0;
 	int	totalRuns = 0;
-	int	meats = 0;
 
 	printf("\nP-lvl = %d: maxStam =\t%d, currStam =\t%d, XP->(%d/%d)",
 			currLevel, maxStam, currStam, levelTab[currLevel - 1] - xpLeft, levelTab[currLevel - 1]);

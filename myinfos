@@ -1,10 +1,11 @@
-586
-342
-290
-241643
+624
+361
+364
+212606
 15
 4800
-70
+71
+25
 
 P-lvl
 Maximum stamina
@@ -13,6 +14,7 @@ XP Left to Lvl UP
 Stamina cost per run
 XP earned per stamina
 Time to do 1 run in seconds
+Meats
 
 2000 42000
 usopp = 400xp/stam
